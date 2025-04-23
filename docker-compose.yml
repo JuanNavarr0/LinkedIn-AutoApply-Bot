@@ -1,0 +1,37 @@
+# Defines the services for running the LinkedIn job application bot.
+
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: linkedin_job_bot
+    working_dir: /job-bot
+
+    env_file:
+      - .env
+
+    volumes:
+      # Mount source code directory for development
+      - ./src:/job-bot/src
+      # Uncomment if needed
+      # - ./logs:/job-bot/logs
+      # - ./data:/job-bot/data
+
+    command: ["python", "-m", "src.main"]
+
+    # Uncomment to keep container running for debugging
+    # stdin_open: true
+    # tty: true
+
+# Uncomment if you need networks or additional services
+# networks:
+#   app-network:
+#     driver: bridge
+
+# services:
+#   db:
+#     ... (database configuration) ...
